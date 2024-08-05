@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const fetchLogin = async (username, password, deviceId) => {
     const message = document.querySelector(".message");
     message.classList.add("hidden");
-    const response = await fetch("http://localhost:3080/login", {
+    const response = await fetch("https://toolser.vercel.app/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
