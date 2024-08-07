@@ -1,26 +1,25 @@
-let isUnlocked = false;
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "unlock") {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tabId = tabs[0].id;
+            console.log("Unlocking tab", tabId);
+            if (chrome.scripting) {
+                chrome.scripting.executeScript(
+                    {
+                        target: { tabId: tabId },
+                        files: ["content.js"],
+                    },
+                    () => {
+                        sendResponse({ message: "Đăng nhập thành công!" });
+                    }
+                );
+            } else {
+                chrome.tabs.executeScript(tabId, { file: "content.js" }, () => {
+                    sendResponse({ message: "Đăng nhập thành công!" });
+                });
+            }
+        });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "unlock" && request.key === "123") {
-        isUnlocked = true;
-        // Mở khóa các chức năng hoặc thay đổi trạng thái của extension
-        console.log("Extension unlocked");
-    }
-});
-
-// Kiểm tra trạng thái của extension
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "checkStatus") {
-        sendResponse({ unlocked: isUnlocked });
-    }
-});
-
-chrome.runtime.onInstalled.addListener(() => {
-    console.log("Extension installed");
-});
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "textSelected") {
-        console.log("Selected text:", request.text);
+        return true;
     }
 });

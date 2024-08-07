@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Secret Key</title>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="./style.css" />
     </head>
     <body>
-        <form action="">
-            <p class="mb-1">Đăng nhâp</p>
+        <form action="" autocomplete="off">
             <div class="input mb-1">
                 <div class="left">
                     <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#e8eaed">
@@ -25,9 +26,17 @@
                 </div>
                 <input type="password" id="password" placeholder="Nhập mật khẩu.." />
             </div>
-            <p class="message hidden">Không thành công</p>
-            <button id="submit">Đăng nhập</button>
+            <p class="message hidden"></p>
+
+            <button id="submit" class="">
+                <div class="loader hidden"></div>
+                Đăng nhập
+            </button>
         </form>
+        <div class="search hidden">
+            <input type="text" id="searchInput" autocomplete="off" />
+            <div class="result-container"></div>
+        </div>
         <script src="popup.js"></script>
     </body>
 </html>
